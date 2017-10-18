@@ -3,15 +3,17 @@ class Person
   # attr_writer :age
   attr_accessor :name, :age
 
-  def initialize(name, age, weight, email)
+  @@class_counter = 0
+
+  def initialize(name, age)
     @name = name
     @age = age
-    @weight = weight
+    @@class_counter += 1
     puts self.greet("mundo")
   end
 
   def greet(other_person)
-    random_number = self.random_number
+    num = random_number
     "Hola #{other_person}! me llamo #{@name}"
   end
 
@@ -45,6 +47,11 @@ class Person
   #   @name = name
   # end
 
+  def self.class_counter
+    @@class_counter
+  end
+
+  private
   def random_number
     rand(1..10)
   end
@@ -60,9 +67,14 @@ puts p1.age
 p1.name = "Juan"
 puts p1.name
 puts p1.class
-puts p1.isDead?
+puts p1.is_dead?
 100.times do
   p1.grow
 end
 puts p1.age
-puts p1.isDead?
+puts p1.is_dead?
+puts Person.class_counter
+1000.times do
+  Person.new("Cualquiera", rand(1..1000))
+end
+puts p1.class_counter
